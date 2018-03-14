@@ -20,8 +20,8 @@ Partial Class frmPayment
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPayment))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
@@ -47,6 +47,8 @@ Partial Class frmPayment
         Me.Label5 = New System.Windows.Forms.Label()
         Me.PAYDATE = New System.Windows.Forms.DateTimePicker()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.btnFindHouseTX = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.grdData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -67,7 +69,7 @@ Partial Class frmPayment
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(12, 65)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(846, 124)
+        Me.GroupBox1.Size = New System.Drawing.Size(846, 100)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "ข้อมูลลูกบ้าน"
@@ -75,7 +77,7 @@ Partial Class frmPayment
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(18, 94)
+        Me.Label3.Location = New System.Drawing.Point(17, 59)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(65, 18)
         Me.Label3.TabIndex = 36
@@ -84,7 +86,7 @@ Partial Class frmPayment
         'txtName
         '
         Me.txtName.BackColor = System.Drawing.Color.LightYellow
-        Me.txtName.Location = New System.Drawing.Point(97, 91)
+        Me.txtName.Location = New System.Drawing.Point(96, 56)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(336, 24)
         Me.txtName.TabIndex = 35
@@ -94,25 +96,25 @@ Partial Class frmPayment
         '
         Me.btnFind.Image = CType(resources.GetObject("btnFind.Image"), System.Drawing.Image)
         Me.btnFind.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnFind.Location = New System.Drawing.Point(288, 55)
+        Me.btnFind.Location = New System.Drawing.Point(287, 20)
         Me.btnFind.Name = "btnFind"
         Me.btnFind.Size = New System.Drawing.Size(92, 30)
-        Me.btnFind.TabIndex = 3
+        Me.btnFind.TabIndex = 1
         Me.btnFind.Text = "ค้นหา"
         Me.btnFind.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.btnFind.UseVisualStyleBackColor = True
         '
         'txtHouseNo
         '
-        Me.txtHouseNo.Location = New System.Drawing.Point(97, 61)
+        Me.txtHouseNo.Location = New System.Drawing.Point(96, 26)
         Me.txtHouseNo.Name = "txtHouseNo"
         Me.txtHouseNo.Size = New System.Drawing.Size(163, 24)
-        Me.txtHouseNo.TabIndex = 2
+        Me.txtHouseNo.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(18, 61)
+        Me.Label1.Location = New System.Drawing.Point(17, 26)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(60, 18)
         Me.Label1.TabIndex = 32
@@ -121,71 +123,79 @@ Partial Class frmPayment
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(266, 26)
+        Me.Label2.Location = New System.Drawing.Point(703, 26)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(17, 18)
         Me.Label2.TabIndex = 31
         Me.Label2.Text = "ปี"
+        Me.Label2.Visible = False
         '
         'cboYear
         '
         Me.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboYear.FormattingEnabled = True
-        Me.cboYear.Location = New System.Drawing.Point(289, 23)
+        Me.cboYear.Location = New System.Drawing.Point(726, 23)
         Me.cboYear.Name = "cboYear"
         Me.cboYear.Size = New System.Drawing.Size(91, 26)
         Me.cboYear.TabIndex = 1
+        Me.cboYear.TabStop = False
+        Me.cboYear.Visible = False
         '
         'lbl
         '
         Me.lbl.AutoSize = True
-        Me.lbl.Location = New System.Drawing.Point(18, 26)
+        Me.lbl.Location = New System.Drawing.Point(455, 26)
         Me.lbl.Name = "lbl"
         Me.lbl.Size = New System.Drawing.Size(73, 18)
         Me.lbl.TabIndex = 29
         Me.lbl.Text = "ประจำเดือน"
+        Me.lbl.Visible = False
         '
         'cboMonth
         '
         Me.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboMonth.FormattingEnabled = True
-        Me.cboMonth.Location = New System.Drawing.Point(97, 23)
+        Me.cboMonth.Location = New System.Drawing.Point(534, 23)
         Me.cboMonth.Name = "cboMonth"
         Me.cboMonth.Size = New System.Drawing.Size(163, 26)
         Me.cboMonth.TabIndex = 0
+        Me.cboMonth.TabStop = False
+        Me.cboMonth.Visible = False
         '
         'grdData
         '
         Me.grdData.AllowUserToAddRows = False
         Me.grdData.AllowUserToDeleteRows = False
         Me.grdData.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdData.Location = New System.Drawing.Point(13, 195)
+        Me.grdData.Location = New System.Drawing.Point(14, 207)
         Me.grdData.MultiSelect = False
         Me.grdData.Name = "grdData"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.grdData.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.grdData.ReadOnly = True
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.grdData.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.grdData.RowHeadersVisible = False
         Me.grdData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.grdData.Size = New System.Drawing.Size(431, 234)
+        Me.grdData.Size = New System.Drawing.Size(431, 198)
         Me.grdData.TabIndex = 17
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.btnPrint)
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.txtPaymentCode)
@@ -198,9 +208,9 @@ Partial Class frmPayment
         Me.GroupBox2.Controls.Add(Me.PAYDATE)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(451, 195)
+        Me.GroupBox2.Location = New System.Drawing.Point(451, 181)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(407, 224)
+        Me.GroupBox2.Size = New System.Drawing.Size(417, 224)
         Me.GroupBox2.TabIndex = 18
         Me.GroupBox2.TabStop = False
         '
@@ -231,13 +241,13 @@ Partial Class frmPayment
         Me.txtPaymentCode.Location = New System.Drawing.Point(95, 23)
         Me.txtPaymentCode.Name = "txtPaymentCode"
         Me.txtPaymentCode.ReadOnly = True
-        Me.txtPaymentCode.Size = New System.Drawing.Size(200, 24)
+        Me.txtPaymentCode.Size = New System.Drawing.Size(186, 24)
         Me.txtPaymentCode.TabIndex = 37
         Me.txtPaymentCode.TabStop = False
         '
         'PAYAMOUNT
         '
-        Me.PAYAMOUNT.Location = New System.Drawing.Point(95, 182)
+        Me.PAYAMOUNT.Location = New System.Drawing.Point(95, 179)
         Me.PAYAMOUNT.Name = "PAYAMOUNT"
         Me.PAYAMOUNT.Size = New System.Drawing.Size(306, 24)
         Me.PAYAMOUNT.TabIndex = 7
@@ -245,7 +255,7 @@ Partial Class frmPayment
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(13, 185)
+        Me.Label7.Location = New System.Drawing.Point(13, 182)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(60, 18)
         Me.Label7.TabIndex = 35
@@ -253,7 +263,7 @@ Partial Class frmPayment
         '
         'PAYREMARK
         '
-        Me.PAYREMARK.Location = New System.Drawing.Point(95, 146)
+        Me.PAYREMARK.Location = New System.Drawing.Point(95, 143)
         Me.PAYREMARK.Name = "PAYREMARK"
         Me.PAYREMARK.Size = New System.Drawing.Size(306, 24)
         Me.PAYREMARK.TabIndex = 6
@@ -261,7 +271,7 @@ Partial Class frmPayment
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(16, 149)
+        Me.Label6.Location = New System.Drawing.Point(16, 146)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(71, 18)
         Me.Label6.TabIndex = 30
@@ -272,7 +282,7 @@ Partial Class frmPayment
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.rdoCash)
         Me.Panel1.Controls.Add(Me.rdoBank)
-        Me.Panel1.Location = New System.Drawing.Point(95, 87)
+        Me.Panel1.Location = New System.Drawing.Point(95, 84)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(149, 53)
         Me.Panel1.TabIndex = 5
@@ -302,7 +312,7 @@ Partial Class frmPayment
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(16, 87)
+        Me.Label5.Location = New System.Drawing.Point(16, 84)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(57, 18)
         Me.Label5.TabIndex = 28
@@ -314,7 +324,7 @@ Partial Class frmPayment
         Me.PAYDATE.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.PAYDATE.Location = New System.Drawing.Point(95, 54)
         Me.PAYDATE.Name = "PAYDATE"
-        Me.PAYDATE.Size = New System.Drawing.Size(200, 24)
+        Me.PAYDATE.Size = New System.Drawing.Size(186, 24)
         Me.PAYDATE.TabIndex = 4
         '
         'Label4
@@ -326,10 +336,36 @@ Partial Class frmPayment
         Me.Label4.TabIndex = 26
         Me.Label4.Text = "วันที่ชำระ"
         '
+        'btnFindHouseTX
+        '
+        Me.btnFindHouseTX.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.btnFindHouseTX.Image = CType(resources.GetObject("btnFindHouseTX.Image"), System.Drawing.Image)
+        Me.btnFindHouseTX.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnFindHouseTX.Location = New System.Drawing.Point(13, 171)
+        Me.btnFindHouseTX.Name = "btnFindHouseTX"
+        Me.btnFindHouseTX.Size = New System.Drawing.Size(160, 30)
+        Me.btnFindHouseTX.TabIndex = 19
+        Me.btnFindHouseTX.Text = "กรุณา เลือกงวดชำระ"
+        Me.btnFindHouseTX.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnFindHouseTX.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(222, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.DarkBlue
+        Me.Label9.Location = New System.Drawing.Point(284, 62)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(121, 16)
+        Me.Label9.TabIndex = 40
+        Me.Label9.Text = "ระบุวันที่ตามสลิปโอนเงิน"
+        '
         'frmPayment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.ClientSize = New System.Drawing.Size(880, 441)
+        Me.ClientSize = New System.Drawing.Size(880, 426)
+        Me.Controls.Add(Me.btnFindHouseTX)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.grdData)
         Me.Controls.Add(Me.GroupBox1)
@@ -342,6 +378,7 @@ Partial Class frmPayment
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.grdData, 0)
         Me.Controls.SetChildIndex(Me.GroupBox2, 0)
+        Me.Controls.SetChildIndex(Me.btnFindHouseTX, 0)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.grdData, System.ComponentModel.ISupportInitialize).EndInit()
@@ -377,5 +414,7 @@ Partial Class frmPayment
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtPaymentCode As System.Windows.Forms.TextBox
     Friend WithEvents btnPrint As System.Windows.Forms.Button
+    Friend WithEvents btnFindHouseTX As System.Windows.Forms.Button
+    Friend WithEvents Label9 As System.Windows.Forms.Label
 
 End Class

@@ -3,8 +3,7 @@
     Dim mMode As Mode
     Dim mIDs As Long
     Dim mHouseID As Long = 0
-    Dim lFirstLoad As Boolean = True
-
+    
     Public Property ModeRun() As Integer
         Get
             ModeRun = mMode
@@ -22,21 +21,25 @@
             mIDs = value
         End Set
     End Property
+
     Private Sub frmPayment_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         On Error GoTo LineError
 
-        Dim i As Integer
-        For i = 1 To 12
-            cboMonth.Items.Add(GetMonthString(i))
-        Next i
+        'Dim i As Integer
+        'For i = 1 To 12
+        '    cboMonth.Items.Add(GetMonthString(i))
+        'Next i
 
-        For i = Year(Now) - 5 To Year(Now) + 5
-            cboYear.Items.Add(i)
-        Next i
-        cboMonth.SelectedItem = GetMonthString(Month(Now))
-        cboYear.Text = Year(Now)
+        'For i = Year(Now) - 5 To Year(Now) + 5
+        '    cboYear.Items.Add(i)
+        'Next i
+        'cboMonth.SelectedItem = GetMonthString(Month(Now))
+        'cboYear.Text = Year(Now)
         Call GenNewID()
         btnPrint.Enabled = False
+
+        mTXList = Nothing
+        mTXList = New List(Of Long)
 
         Exit Sub
 LineError:
@@ -53,8 +56,6 @@ LineError:
         On Error GoTo LineError
 
         If Not ConnectStatus Then GoTo LineExit 'Check Connection
-
-        CalcAmount()
         If Not Verify() Then GoTo LineExit 'Check Data
 
         If mMode = Mode.AddNew Then
@@ -245,7 +246,8 @@ LineExit:
             txtName.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("OWNERNAME"))
             txtHouseNo.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("HOUSENO"))
             mHouseID = ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSEID"))
-            LoadHouseTX()
+            grdData.DataSource = Nothing
+            CalcAmount()
         Else
             pHouseID = ShowFormFind()
             If pHouseID > 0 Then
@@ -260,37 +262,33 @@ LineExit:
         Dim SQL As String
         Dim da As OleDb.OleDbDataAdapter
         Dim ds As DataSet = New DataSet
+        Dim lHouseTXList As String = ""
 
         If Not ConnectStatus Then GoTo LineExit
-        SQL = "SELECT  HOUSETXID,TXPERIOD,TXAMOUNT FROM HOUSETX"
-        'SQL = SQL & " WHERE month(TXPERIOD)= " & Me.cboMonth.SelectedIndex + 1
-        'SQL = SQL & " AND year(TXPERIOD)= " & Me.cboYear.SelectedItem
-        SQL = SQL & " WHERE ISPAY='N' "
-        If mHouseID > 0 Then
-            SQL = SQL & " AND HOUSEID = " & mHouseID
-        End If
-        SQL = SQL & " Order by TXPERIOD"
+        If mTXList.Count > 0 Then
+            For Each pTxID As Long In mTXList
+                If lHouseTXList = "" Then
+                    lHouseTXList = pTxID.ToString
+                Else
+                    lHouseTXList = lHouseTXList & "," & pTxID.ToString
+                End If
+            Next
 
-        da = New OleDb.OleDbDataAdapter(SQL, gConnection)
-        da.Fill(ds, "Data")
-        If ds.Tables("Data").Rows.Count > 0 Then
-            grdData.DataSource = ds.Tables("Data")
-            Call GridStyle()
-            If lFirstLoad = True Then
-                'Add Select column
-                Dim AddColumn As New DataGridViewCheckBoxColumn
-                With AddColumn
-                    .HeaderText = "เลือก"
-                    .Name = "ISSELECT"
-                    .Width = 80
-                End With
-                grdData.Columns.Insert(0, AddColumn)
-                lFirstLoad = False
+            SQL = "SELECT  HOUSETXID,TXPERIOD,TXAMOUNT FROM HOUSETX"
+            SQL = SQL & " WHERE ISPAY='N' "
+            SQL = SQL & " AND HOUSETXID in (" & lHouseTXList & ")"
+            SQL = SQL & " Order by TXPERIOD"
+
+            da = New OleDb.OleDbDataAdapter(SQL, gConnection)
+            da.Fill(ds, "Data")
+            If ds.Tables("Data").Rows.Count > 0 Then
+                grdData.DataSource = ds.Tables("Data")
+                Call GridStyle()
+            Else
+                grdData.DataSource = Nothing
             End If
-        Else
-            grdData.DataSource = Nothing
         End If
-
+        CalcAmount()
 LineExit:
     End Sub
 
@@ -298,20 +296,10 @@ LineExit:
         Dim lTotal As Decimal = 0, lRow As Long = 0
         Try
             mTXList = New List(Of Long)
-
-            'PAYAMOUNT.Text = "0.00"
-            grdData.EndEdit()
-            grdData.Refresh()
+              
             For lRow = 0 To grdData.Rows.Count - 1
-                If grdData.Rows(lRow).Cells(0).Value = True Then
-                    lTotal = lTotal + ConvertNullToZero(grdData.Rows(lRow).Cells("TXAMOUNT").Value)
-                    mTXList.Add(ConvertNullToZero(grdData.Rows(lRow).Cells("HOUSETXID").Value))
-                End If
-
-                'If pRow.ite("ISSELECT") = True Then
-                '    lTotal = lTotal + ConvertNullToZero(pRow("TXAMOUNT"))
-                '    mTXList.Add(ConvertNullToZero(pRow("HOUSETXID")))
-                'End If
+                lTotal = lTotal + ConvertNullToZero(grdData.Rows(lRow).Cells("TXAMOUNT").Value)
+                mTXList.Add(ConvertNullToZero(grdData.Rows(lRow).Cells("HOUSETXID").Value))
             Next
             PAYAMOUNT.Text = Format(lTotal, "#,##0.00")
         Catch ex As Exception
@@ -325,7 +313,7 @@ LineExit:
 
             .Columns("TXPERIOD").HeaderText = "งวดชำระ"
             .Columns("TXPERIOD").Width = 150
-            .Columns("TXPERIOD").DefaultCellStyle.Format = "MM/yyyy"
+            .Columns("TXPERIOD").DefaultCellStyle.Format = "MMMM yyyy"
             .Columns("TXPERIOD").ReadOnly = True
 
             .Columns("TXAMOUNT").HeaderText = "ยอดเงิน"
@@ -342,22 +330,6 @@ LineExit:
         Return lfrmFind.KeyID
 LineExit:
     End Function
-
-
-    'Private Sub grdData_CellValueChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles grdData.CellValueChanged
-    '    If e.ColumnIndex = 0 Then
-    '        CalcAmount()
-    '    End If
-    'End Sub
-
-    Private Sub grdData_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdData.LostFocus
-        CalcAmount()
-    End Sub
-
-    'Private Sub frmPayment_SizeChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.SizeChanged
-    '    If Width > 886 Then Width = 886
-    '    If Height > 431 Then Width = 431
-    'End Sub
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
 
@@ -376,9 +348,30 @@ LineExit:
             Dim lclsPrint As New clsReceipt
             lclsPrint.PrintReceipt(mIDs, lIsPrintCoppy)
         End If
-      
+
         Me.Cursor = Cursors.Default
 
     End Sub
      
+    Private Sub btnFindHouseTX_Click(sender As System.Object, e As System.EventArgs) Handles btnFindHouseTX.Click
+        Dim lfrmTX As New frmFindHouseTX
+
+        mTXList = Nothing
+        mTXList = New List(Of Long)
+        If mHouseID > 0 Then
+            lfrmTX.HouseNo = txtHouseNo.Text
+            lfrmTX.HouseID = mHouseID
+            lfrmTX.ShowDialog()
+
+            mTXList = lfrmTX.KeyID
+            If Not IsNothing(mTXList) Then
+                LoadHouseTX()
+            End If
+
+        Else
+            MessageBox.Show("กรุณาระบุบ้านเลือกที่", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            grdData.DataSource = Nothing
+        End If
+
+    End Sub
 End Class

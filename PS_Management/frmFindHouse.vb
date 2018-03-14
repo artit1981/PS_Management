@@ -26,7 +26,7 @@ LineError:
         Dim ds As DataSet = New DataSet
 
         If ConnectStatus Then
-            SQL = "SELECT HOUSEID,HOUSENO,OWNERNAME,OWNERPHONE,SWITCH (HOUSETYPE =1 , 'ทาวน์เฮ้าส์' , HOUSETYPE =2, 'บ้านแฝด' ) as HOUSETYPE"
+            SQL = "SELECT HOUSEID,HOUSENO,OWNERNAME,OWNERPHONE,SWITCH (HOUSETYPE =1 , 'ทาวน์เฮ้าส์ 3' ,HOUSETYPE =2 , 'ทาวน์เฮ้าส์ 4' , HOUSETYPE =3, 'บ้านแฝด' ) as HOUSETYPE"
             SQL = SQL & " FROM HOUSE "
             SQL = SQL & " WHERE ISDELETE = 'N' "
             If ConvertNullToString(txtHouseNo.Text) <> "" Then

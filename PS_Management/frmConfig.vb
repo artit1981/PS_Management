@@ -14,13 +14,14 @@
         SQL = SQL & " ,PROJECTADDRESS='" & ConvertNullToString(txtAddress.Text) & "'"
         SQL = SQL & " ,HOUSEPRICE1=" & ConvertNullToZero(HousePrice1.Text)
         SQL = SQL & " ,HOUSEPRICE2=" & ConvertNullToZero(HousePrice2.Text)
+        SQL = SQL & " ,HOUSEPRICE3=" & ConvertNullToZero(HousePrice3.Text)
         SQL = SQL & " ,EXPIREDAY=" & ConvertNullToZero(txtExpireDay.Text)
         SQL = SQL & " ,BANKACCOUNT='" & ConvertNullToString(txtBankAccount.Text) & "'"
         SQL = SQL & " ,SIGNNAME='" & ConvertNullToString(txtSignName.Text) & "'"
         SQL = SQL & " ,SIGNPOSITION='" & ConvertNullToString(txtPosition.Text) & "'"
         SQL = SQL & " ,UPDATEBY='" & gUserName & "'"
         SQL = SQL & " ,UPDATEDATE=" & formatSQLDate(Now)
-         
+
         Dim lTr As OleDb.OleDbTransaction
         Dim lCom As OleDb.OleDbCommand = gConnection.CreateCommand()
 
@@ -51,7 +52,7 @@ LineError:
 
     Private Sub frmEditHouseInfo_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         On Error GoTo LineError
- 
+
         LoadData()
 
         Exit Sub
@@ -74,11 +75,12 @@ LineError:
             Me.txtAddress.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("PROJECTADDRESS"))
             Me.HousePrice1.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("HOUSEPRICE1"))
             Me.HousePrice2.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("HOUSEPRICE2"))
+            Me.HousePrice3.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("HOUSEPRICE3"))
             Me.txtExpireDay.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("EXPIREDAY"))
             Me.txtBankAccount.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("BANKACCOUNT"))
             Me.txtSignName.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("SIGNNAME"))
             Me.txtPosition.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("SIGNPOSITION"))
-            
+
         End If
 LineExit:
     End Sub
@@ -102,16 +104,16 @@ LineExit:
             Exit Function
         End If
 
-        If ConvertNullToString(Me.HousePrice2.Text) = "" Then
+        If ConvertNullToString(Me.HousePrice3.Text) = "" Then
             MsgBox("กรุณาระบุข้อมูล", MsgBoxStyle.Information + MessageBoxButtons.OK, "การตรวจสอบ")
-            Me.HousePrice2.Focus()
+            Me.HousePrice3.Focus()
             Exit Function
-        ElseIf IsNumeric(Me.HousePrice2.Text) = False Then
+        ElseIf IsNumeric(Me.HousePrice3.Text) = False Then
             MsgBox("กรุณาระบุข้อมูลเป็นตัวเลข", MsgBoxStyle.Information + MessageBoxButtons.OK, "การตรวจสอบ")
-            Me.HousePrice2.Focus()
+            Me.HousePrice3.Focus()
             Exit Function
         End If
- 
+
         If ConvertNullToString(Me.txtExpireDay.Text) = "" Then
             MsgBox("กรุณาระบุข้อมูล", MsgBoxStyle.Information + MessageBoxButtons.OK, "การตรวจสอบ")
             Me.txtExpireDay.Focus()

@@ -1,17 +1,22 @@
 ﻿Public Class frmLogin
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
-          
-        Try
-         
 
+    Private Sub frmLogin_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Dim lDBPath As String = Application.StartupPath & "\DB\DB.MDB"
+        gConnString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & lDBPath & " ;Jet OLEDB:Database Password=titpoo99;"
+
+        'txtLogin.Text = "artit"
+        'txtPassword.Text = "artit"
+    End Sub
+
+    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+        Try
             If VerifyUser() Then
-              
+
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical + MessageBoxButtons.OK, "Error")
         Finally
-
         End Try
 
     End Sub
@@ -74,16 +79,6 @@
             MsgBox(ex.Message, MsgBoxStyle.Critical + MessageBoxButtons.OK, "Error")
         End Try
     End Function
-
-     
-
-    Private Sub frmLogin_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Dim lDBPath As String = Application.StartupPath & "\DB\DB.MDB"
-        gConnString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & lDBPath & " ;Jet OLEDB:Database Password=titpoo99;"
-
-        'txtLogin.Text = "artit"
-        'txtPassword.Text = "artit"
-    End Sub
 
     Private Sub btnCancel_Click(sender As System.Object, e As System.EventArgs) Handles btnCancel.Click
         Application.Exit()

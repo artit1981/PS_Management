@@ -9,7 +9,7 @@
         Dim lBeginTX As Integer = 0, i As Long = 0, lCount As Long = 0, lTxId As Long = 0, lSEQ As Integer = 1
         Dim da As OleDb.OleDbDataAdapter
         Dim ds As DataSet = New DataSet
-        Dim lPrice1 As Decimal = 0, lPrice2 As Decimal = 0, lExpireDay As Long = 0, lExpireDate As Date
+        Dim lPrice1 As Decimal = 0, lPrice2 As Decimal = 0, lPrice3 As Decimal = 0, lExpireDay As Long = 0, lExpireDate As Date
         Dim lTr As OleDb.OleDbTransaction = Nothing
         Dim lCom As OleDb.OleDbCommand = gConnection.CreateCommand()
         Dim ldtpCurrentDate As Date = DateSerial(Me.cboYear.SelectedItem, Me.cboMonth.SelectedIndex + 1, 1)
@@ -21,13 +21,14 @@
 
 
             'Get Price
-            SQL = "SELECT HOUSEPRICE1,HOUSEPRICE2,EXPIREDAY  FROM PROJECTCONFIG"
+            SQL = "SELECT HOUSEPRICE1,HOUSEPRICE2,HOUSEPRICE3,EXPIREDAY  FROM PROJECTCONFIG"
             da = New OleDb.OleDbDataAdapter(SQL, gConnection)
             ds = New DataSet
             da.Fill(ds, "Data")
             If ds.Tables("Data").Rows.Count > 0 Then
                 lPrice1 = ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSEPRICE1"))
                 lPrice2 = ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSEPRICE2"))
+                lPrice3 = ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSEPRICE3"))
                 lExpireDay = ConvertNullToZero(ds.Tables("Data").Rows(0).Item("EXPIREDAY"))
             End If
 
@@ -59,13 +60,17 @@
                     SQL = SQL & " ,1" 'QTY
                     If ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSETYPE")) = 1 Then
                         SQL = SQL & " ," & lPrice1
-                    Else
+                    ElseIf ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSETYPE")) = 2 Then
                         SQL = SQL & " ," & lPrice2
+                    Else
+                        SQL = SQL & " ," & lPrice3
                     End If
                     If ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSETYPE")) = 1 Then
                         SQL = SQL & " ," & lPrice1
-                    Else
+                    ElseIf ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSETYPE")) = 2 Then
                         SQL = SQL & " ," & lPrice2
+                    Else
+                        SQL = SQL & " ," & lPrice3
                     End If
                     SQL = SQL & " ," & formatSQLDate(lExpireDate)
                     SQL = SQL & " ,'N' "    'ISPAY

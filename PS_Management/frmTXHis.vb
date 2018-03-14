@@ -1,8 +1,11 @@
 Public Class frmTXHis
+    Private mIsload As Boolean = False
 
     Private Sub frmAccount_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim i As Integer
         On Error GoTo LineError
+
+        mIsload = True
         For i = 1 To 12
             cboMonth.Items.Add(GetMonthString(i))
         Next i
@@ -12,6 +15,8 @@ Public Class frmTXHis
         Next i
         cboMonth.SelectedItem = GetMonthString(Month(Now))
         cboYear.Text = Year(Now)
+
+        mIsload = False
         Call LoadData()
         Exit Sub
 LineError:
@@ -26,8 +31,8 @@ LineError:
         'Dim dr As DataRow
         'Dim llngDayMonth As Int16, i As Int16, llngID As Long
         'Dim ldtpCurrentDate As Date
-        If ConnectStatus Then
-            SQL = "SELECT HOUSE.HOUSEID,HOUSE.HOUSENO,HOUSE.OWNERNAME,SWITCH (HOUSETYPE =1 , '·ÒÇ¹ìàÎéÒÊì' , HOUSETYPE =2, 'ºéÒ¹á½´' ) as HOUSETYPE  ,HOUSETX.TXAMOUNT,HOUSETX.ISPAY,HOUSETX.PAYDATE "
+        If ConnectStatus And mIsload = False Then
+            SQL = "SELECT HOUSE.HOUSEID,HOUSE.HOUSENO,HOUSE.OWNERNAME,SWITCH (HOUSETYPE =1 , '·ÒÇ¹ìàÎéÒÊì 3' ,HOUSETYPE =2 , '·ÒÇ¹ìàÎéÒÊì 4' , HOUSETYPE =3, 'ºéÒ¹á½´' ) as HOUSETYPE  ,HOUSETX.TXAMOUNT,HOUSETX.ISPAY,HOUSETX.PAYDATE "
             SQL = SQL & " FROM HOUSE,HOUSETX "
             SQL = SQL & " WHERE HOUSE.HOUSEID=HOUSETX.HOUSEID"
             SQL = SQL & " AND MONTH(HOUSETX.TXPERIOD)=" & Me.cboMonth.SelectedIndex + 1
@@ -36,20 +41,6 @@ LineError:
             SQL = SQL & " ORDER BY HOUSE.HOUSEID"
             da = New OleDb.OleDbDataAdapter(SQL, gConnection)
             da.Fill(ds, "Data")
-            'If ds.Tables("Data").Rows.Count > 0 Then
-            'Else
-            '    ldtpCurrentDate = DateSerial(Me.cboYear.SelectedItem, Me.cboMonth.SelectedIndex + 1, 1)
-            '    llngDayMonth = DaysOfMonth(ldtpCurrentDate)
-            '    For i = 1 To llngDayMonth
-            '        dr = ds.Tables("Data").NewRow
-            '        dr.Item("ACCID") = llngID
-            '        dr.Item("ACCDATE") = ldtpCurrentDate
-            '        dr.Item("USERID") = gUserID
-            '        llngID = llngID + 1
-            '        ds.Tables("Data").Rows.Add(dr)
-            '        ldtpCurrentDate = DateAdd(DateInterval.Day, 1, ldtpCurrentDate)
-            '    Next i
-            'End If
             grdData.DataSource = ds.Tables("Data")
             Call GridStyle()
         End If

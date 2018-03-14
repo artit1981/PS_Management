@@ -38,21 +38,24 @@ Partial Class frmMain
         Me.mnuConfig = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHouseInfo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuUser = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuWindows = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MnuloseAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuReport = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuReportBill = New System.Windows.Forms.ToolStripMenuItem()
         Me.MnuPrintReceipt = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuWindows = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MnuloseAll = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuPrintTx = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuPaySumary = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
-        Me.cmdData = New System.Windows.Forms.ToolStripButton()
-        Me.cmdHis = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmdPay = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdHis = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdData = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.tbnExit = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip.SuspendLayout()
@@ -172,9 +175,23 @@ Partial Class frmMain
         Me.mnuUser.Size = New System.Drawing.Size(139, 22)
         Me.mnuUser.Text = "ข้อมูลผู้ใช้งาน"
         '
+        'MnuWindows
+        '
+        Me.MnuWindows.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuloseAll})
+        Me.MnuWindows.Name = "MnuWindows"
+        Me.MnuWindows.Size = New System.Drawing.Size(58, 20)
+        Me.MnuWindows.Text = "หน้าต่าง"
+        '
+        'MnuloseAll
+        '
+        Me.MnuloseAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MnuloseAll.Name = "MnuloseAll"
+        Me.MnuloseAll.Size = New System.Drawing.Size(152, 22)
+        Me.MnuloseAll.Text = "C&lose All"
+        '
         'MnuReport
         '
-        Me.MnuReport.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuReportBill, Me.MnuPrintReceipt})
+        Me.MnuReport.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuReportBill, Me.MnuPrintReceipt, Me.mnuPrintTx, Me.mnuPaySumary})
         Me.MnuReport.Name = "MnuReport"
         Me.MnuReport.Size = New System.Drawing.Size(55, 20)
         Me.MnuReport.Text = "รายงาน"
@@ -191,19 +208,17 @@ Partial Class frmMain
         Me.MnuPrintReceipt.Size = New System.Drawing.Size(165, 22)
         Me.MnuPrintReceipt.Text = "พิมพ์ใบเสร็จรับเงิน"
         '
-        'MnuWindows
+        'mnuPrintTx
         '
-        Me.MnuWindows.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MnuloseAll})
-        Me.MnuWindows.Name = "MnuWindows"
-        Me.MnuWindows.Size = New System.Drawing.Size(58, 20)
-        Me.MnuWindows.Text = "หน้าต่าง"
+        Me.mnuPrintTx.Name = "mnuPrintTx"
+        Me.mnuPrintTx.Size = New System.Drawing.Size(165, 22)
+        Me.mnuPrintTx.Text = "สรุปการชำระ"
         '
-        'MnuloseAll
+        'mnuPaySumary
         '
-        Me.MnuloseAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MnuloseAll.Name = "MnuloseAll"
-        Me.MnuloseAll.Size = New System.Drawing.Size(122, 22)
-        Me.MnuloseAll.Text = "C&lose All"
+        Me.mnuPaySumary.Name = "mnuPaySumary"
+        Me.mnuPaySumary.Size = New System.Drawing.Size(165, 22)
+        Me.mnuPaySumary.Text = "ตรวจสอบการชำระ"
         '
         'HelpMenu
         '
@@ -230,7 +245,7 @@ Partial Class frmMain
         Me.ToolStrip1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(70, 70)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripButton2, Me.cmdData, Me.cmdHis, Me.ToolStripSeparator1, Me.cmdPay, Me.ToolStripSeparator2, Me.tbnExit})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripButton2, Me.cmdPay, Me.ToolStripSeparator1, Me.cmdHis, Me.ToolStripSeparator3, Me.cmdData, Me.ToolStripSeparator2, Me.tbnExit})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(104, 492)
@@ -255,15 +270,20 @@ Partial Class frmMain
         Me.ToolStripButton2.Name = "ToolStripButton2"
         Me.ToolStripButton2.Size = New System.Drawing.Size(101, 4)
         '
-        'cmdData
+        'cmdPay
         '
-        Me.cmdData.ForeColor = System.Drawing.Color.White
-        Me.cmdData.Image = CType(resources.GetObject("cmdData.Image"), System.Drawing.Image)
-        Me.cmdData.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdData.Name = "cmdData"
-        Me.cmdData.Size = New System.Drawing.Size(101, 90)
-        Me.cmdData.Text = "ประมวลผลรายเดือน"
-        Me.cmdData.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.cmdPay.ForeColor = System.Drawing.Color.White
+        Me.cmdPay.Image = CType(resources.GetObject("cmdPay.Image"), System.Drawing.Image)
+        Me.cmdPay.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdPay.Name = "cmdPay"
+        Me.cmdPay.Size = New System.Drawing.Size(101, 90)
+        Me.cmdPay.Text = "บันทึกชำระ"
+        Me.cmdPay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(101, 6)
         '
         'cmdHis
         '
@@ -275,20 +295,20 @@ Partial Class frmMain
         Me.cmdHis.Text = "ข้อมูลการชำระ"
         Me.cmdHis.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
-        'ToolStripSeparator1
+        'ToolStripSeparator3
         '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(101, 6)
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(101, 6)
         '
-        'cmdPay
+        'cmdData
         '
-        Me.cmdPay.ForeColor = System.Drawing.Color.White
-        Me.cmdPay.Image = CType(resources.GetObject("cmdPay.Image"), System.Drawing.Image)
-        Me.cmdPay.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdPay.Name = "cmdPay"
-        Me.cmdPay.Size = New System.Drawing.Size(101, 90)
-        Me.cmdPay.Text = "บันทึกชำระ"
-        Me.cmdPay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.cmdData.ForeColor = System.Drawing.Color.White
+        Me.cmdData.Image = CType(resources.GetObject("cmdData.Image"), System.Drawing.Image)
+        Me.cmdData.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdData.Name = "cmdData"
+        Me.cmdData.Size = New System.Drawing.Size(101, 90)
+        Me.cmdData.Text = "ประมวลผลรายเดือน"
+        Me.cmdData.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripSeparator2
         '
@@ -364,5 +384,8 @@ Partial Class frmMain
     Friend WithEvents mnuReportBill As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuUser As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MnuPrintReceipt As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuPrintTx As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuPaySumary As System.Windows.Forms.ToolStripMenuItem
 
 End Class

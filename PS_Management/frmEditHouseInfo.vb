@@ -31,7 +31,7 @@
         If mMode = Mode.AddNew Then
             Call GenNewID()
             SQL = "INSERT INTO HOUSE(HOUSEID,HOUSENO,LANDNO,OWNERNAME,OWNERPHONE,RESIDENTNAME,RESIDENTPHONE "
-            SQL = SQL & " ,HOUSETYPE,HOUSEPERIOD,REMARK,ISDELETE,CREATEBY,CREATEDATE)"
+            SQL = SQL & " ,HOUSETYPE,HOUSEPERIOD,REMARK,ISDELETE,CREATEBY,CREATEDATE,SOI)"
             SQL = SQL & " VALUES( "
             SQL = SQL & "  " & mID & ""
             SQL = SQL & " ,'" & ConvertNullToString(txtHouseNo.Text) & "'"
@@ -42,14 +42,17 @@
             SQL = SQL & " ,'" & ConvertNullToString(txtResidentPhone.Text) & "'"
             If rdoHouse1.Checked = True Then
                 SQL = SQL & ",1  "
-            Else
+            ElseIf rdoHouse2.Checked = True Then
                 SQL = SQL & ",2  "
+            Else
+                SQL = SQL & ",3  "
             End If
             SQL = SQL & " ," & ConvertNullToZero(txtPeroid.Text)
             SQL = SQL & " ,'" & ConvertNullToString(txtRemark.Text) & "'"
             SQL = SQL & " , 'N'  "
             SQL = SQL & " ,'" & gUserName & "'"
             SQL = SQL & " ," & formatSQLDate(Now)
+            SQL = SQL & " ,'" & ConvertNullToString(txtSoi.Text) & "'"
             SQL = SQL & " ) "
         Else
             SQL = "UPDATE HOUSE SET "
@@ -59,10 +62,13 @@
             SQL = SQL & " ,OWNERPHONE='" & ConvertNullToString(txtOwnerPhone.Text) & "'"
             SQL = SQL & " ,RESIDENTNAME='" & ConvertNullToString(txtResidentName.Text) & "'"
             SQL = SQL & " ,RESIDENTPHONE='" & ConvertNullToString(txtResidentPhone.Text) & "'"
+            SQL = SQL & " ,SOI='" & ConvertNullToString(txtSoi.Text) & "'"
             If rdoHouse1.Checked = True Then
                 SQL = SQL & ",HOUSETYPE=1  "
-            Else
+            ElseIf rdoHouse2.Checked = True Then
                 SQL = SQL & ",HOUSETYPE=2  "
+            Else
+                SQL = SQL & ",HOUSETYPE=3  "
             End If
             SQL = SQL & " ,HOUSEPERIOD=" & ConvertNullToZero(txtPeroid.Text)
             SQL = SQL & " ,REMARK='" & ConvertNullToString(txtRemark.Text) & "'"
@@ -120,7 +126,7 @@ LineError:
         Dim ds As DataSet = New DataSet
 
         If Not ConnectStatus Then GoTo LineExit
-        SQL = "SELECT HOUSEID,HOUSENO,LANDNO,OWNERNAME,OWNERPHONE,RESIDENTNAME,RESIDENTPHONE,HOUSETYPE,HOUSEPERIOD,REMARK FROM HOUSE"
+        SQL = "SELECT HOUSEID,HOUSENO,LANDNO,OWNERNAME,OWNERPHONE,RESIDENTNAME,RESIDENTPHONE,HOUSETYPE,HOUSEPERIOD,REMARK,SOI FROM HOUSE"
         SQL = SQL & " WHERE HOUSEID=" & mID
 
         da = New OleDb.OleDbDataAdapter(SQL, gConnection)
@@ -135,10 +141,13 @@ LineError:
             Me.txtResidentPhone.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("RESIDENTPHONE"))
             Me.txtPeroid.Text = ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSEPERIOD"))
             Me.txtRemark.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("REMARK"))
+            Me.txtSoi.Text = ConvertNullToString(ds.Tables("Data").Rows(0).Item("SOI"))
             If ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSETYPE")) = 1 Then
                 rdoHouse1.Checked = True
-            Else
+            ElseIf ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSETYPE")) = 2 Then
                 rdoHouse2.Checked = True
+            Else
+                rdoHouse3.Checked = True
             End If
         End If
 LineExit:
@@ -152,7 +161,7 @@ LineExit:
 
 
         If Not ConnectStatus Then GoTo LineExit
-        SQL = "SELECT HOUSEPRICE1,HOUSEPRICE2  FROM PROJECTCONFIG"
+        SQL = "SELECT HOUSEPRICE1,HOUSEPRICE2,HOUSEPRICE3  FROM PROJECTCONFIG"
 
        
         da = New OleDb.OleDbDataAdapter(SQL, gConnection)
@@ -161,8 +170,10 @@ LineExit:
         If ds.Tables("Data").Rows.Count > 0 Then
             If rdoHouse1.Checked = True Then
                 txtAmount.Text = Format(ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSEPRICE1")), "#,##0.00")
-            Else
+            ElseIf rdoHouse2.Checked = True Then
                 txtAmount.Text = Format(ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSEPRICE2")), "#,##0.00")
+            Else
+                txtAmount.Text = Format(ConvertNullToZero(ds.Tables("Data").Rows(0).Item("HOUSEPRICE3")), "#,##0.00")
             End If
         End If
 LineExit:

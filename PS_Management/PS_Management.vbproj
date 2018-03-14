@@ -76,6 +76,7 @@
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <Private>True</Private>
+      <HintPath>bin\Debug\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -118,6 +119,36 @@
     <Compile Include="clsControlHouseInfo.vb" />
     <Compile Include="clsControlUser.vb" />
     <Compile Include="clsReceipt.vb" />
+    <Compile Include="frmPrintPaySumary.Designer.vb">
+      <DependentUpon>frmPrintPaySumary.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrintPaySumary.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="rptPaySumary.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptPaySumary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rptPrintTX.vb">
+      <DependentUpon>rptPrintTX.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="frmPrintTX.Designer.vb">
+      <DependentUpon>frmPrintTX.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrintTX.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFindHouseTX.Designer.vb">
+      <DependentUpon>frmFindHouseTX.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFindHouseTX.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmPrintReceipt.Designer.vb">
       <DependentUpon>frmPrintReceipt.vb</DependentUpon>
     </Compile>
@@ -246,6 +277,23 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmPrintPaySumary.resx">
+      <DependentUpon>frmPrintPaySumary.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptPaySumary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptPaySumary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptPrintTX.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptPrintTX.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPrintTX.resx">
+      <DependentUpon>frmPrintTX.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFindHouseTX.resx">
+      <DependentUpon>frmFindHouseTX.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPrintReceipt.resx">
       <DependentUpon>frmPrintReceipt.vb</DependentUpon>
     </EmbeddedResource>

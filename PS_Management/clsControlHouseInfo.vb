@@ -38,9 +38,9 @@ LineError:
         Dim ds As DataSet = New DataSet
 
         If ConnectStatus Then
-            SQL = "SELECT HOUSEID,HOUSENO,OWNERNAME,OWNERPHONE" ',HOUSEPERIOD,HOUSEPAYAMOUNT "
+            SQL = "SELECT HOUSEID,HOUSENO,OWNERNAME,OWNERPHONE,SOI" ',HOUSEPERIOD,HOUSEPAYAMOUNT "
             'SWITCH(is_enable=True,'Yes',is_enable=False,'No')
-            SQL = SQL & " ,SWITCH (HOUSETYPE =1 , 'ทาวน์เฮ้าส์' , HOUSETYPE =2, 'บ้านแฝด' ) as HOUSETYPE "
+            SQL = SQL & " ,SWITCH (HOUSETYPE =1 , 'ทาวน์เฮ้าส์ 3' , HOUSETYPE =2 , 'ทาวน์เฮ้าส์ 4' ,HOUSETYPE =3, 'บ้านแฝด' ) as HOUSETYPE "
             SQL = SQL & " FROM HOUSE "
             SQL = SQL & " WHERE ISDELETE = 'N' "
             SQL = SQL & " ORDER BY HOUSEID"
@@ -70,6 +70,9 @@ LineError:
 
             .Columns("HOUSETYPE").HeaderText = "ประเภทบ้าน"
             .Columns("HOUSETYPE").Width = 200
+
+            .Columns("SOI").HeaderText = "ซอย"
+            .Columns("SOI").Width = 80
         End With
     End Sub
 

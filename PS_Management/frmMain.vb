@@ -4,8 +4,9 @@ Public Class frmMain
 
     Private Sub frmMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         If mToClose = True Then
-            Global.System.Windows.Forms.Application.Exit()
             Call DisConnect()
+            Global.System.Windows.Forms.Application.Exit()
+            'End
         End If
     End Sub
 
@@ -86,5 +87,22 @@ LineError:
     Private Sub MnuPrintReceipt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnuPrintReceipt.Click
         frmPrintReceipt.MdiParent = Me
         frmPrintReceipt.Show()
+    End Sub
+
+    Private Sub mnuPrintTx_Click(sender As System.Object, e As System.EventArgs) Handles mnuPrintTx.Click
+        frmPrintTX.MdiParent = Me
+        frmPrintTX.Show()
+    End Sub
+
+    Private Sub mnuUser_Click(sender As System.Object, e As System.EventArgs) Handles mnuUser.Click
+        Static lcls As clsControlUser
+
+        If lcls Is Nothing Then lcls = New clsControlUser
+        If Not lcls.Running Then Call lcls.Execute()
+    End Sub
+
+    Private Sub mnuPaySumary_Click(sender As System.Object, e As System.EventArgs) Handles mnuPaySumary.Click
+        frmPrintPaySumary.MdiParent = Me
+        frmPrintPaySumary.Show()
     End Sub
 End Class

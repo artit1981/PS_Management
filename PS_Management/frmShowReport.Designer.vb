@@ -35,8 +35,12 @@ Partial Class frmShowReport
         Me.CrystalReportViewer1.Location = New System.Drawing.Point(0, 0)
         Me.CrystalReportViewer1.Name = "CrystalReportViewer1"
         Me.CrystalReportViewer1.ShowCopyButton = False
+        Me.CrystalReportViewer1.ShowGotoPageButton = False
         Me.CrystalReportViewer1.ShowGroupTreeButton = False
+        Me.CrystalReportViewer1.ShowLogo = False
         Me.CrystalReportViewer1.ShowParameterPanelButton = False
+        Me.CrystalReportViewer1.ShowRefreshButton = False
+        Me.CrystalReportViewer1.ShowTextSearchButton = False
         Me.CrystalReportViewer1.Size = New System.Drawing.Size(782, 479)
         Me.CrystalReportViewer1.TabIndex = 0
         Me.CrystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None

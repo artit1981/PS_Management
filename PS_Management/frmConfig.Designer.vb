@@ -30,7 +30,7 @@ Partial Class frmConfig
         Me.txtSignName = New System.Windows.Forms.TextBox()
         Me.txtBankAccount = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.HousePrice2 = New System.Windows.Forms.TextBox()
+        Me.HousePrice3 = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.HousePrice1 = New System.Windows.Forms.TextBox()
         Me.txtProjectName = New System.Windows.Forms.TextBox()
@@ -42,6 +42,9 @@ Partial Class frmConfig
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.HousePrice2 = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -49,6 +52,9 @@ Partial Class frmConfig
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label13)
+        Me.GroupBox1.Controls.Add(Me.Label12)
+        Me.GroupBox1.Controls.Add(Me.HousePrice2)
         Me.GroupBox1.Controls.Add(Me.Label11)
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.txtExpireDay)
@@ -58,7 +64,7 @@ Partial Class frmConfig
         Me.GroupBox1.Controls.Add(Me.txtSignName)
         Me.GroupBox1.Controls.Add(Me.txtBankAccount)
         Me.GroupBox1.Controls.Add(Me.Label8)
-        Me.GroupBox1.Controls.Add(Me.HousePrice2)
+        Me.GroupBox1.Controls.Add(Me.HousePrice3)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.HousePrice1)
         Me.GroupBox1.Controls.Add(Me.txtProjectName)
@@ -78,7 +84,7 @@ Partial Class frmConfig
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(361, 140)
+        Me.Label11.Location = New System.Drawing.Point(361, 170)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(24, 18)
         Me.Label11.TabIndex = 17
@@ -87,7 +93,7 @@ Partial Class frmConfig
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(28, 140)
+        Me.Label10.Location = New System.Drawing.Point(6, 170)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(114, 18)
         Me.Label10.TabIndex = 16
@@ -95,11 +101,11 @@ Partial Class frmConfig
         '
         'txtExpireDay
         '
-        Me.txtExpireDay.Location = New System.Drawing.Point(194, 137)
+        Me.txtExpireDay.Location = New System.Drawing.Point(194, 167)
         Me.txtExpireDay.MaxLength = 10
         Me.txtExpireDay.Name = "txtExpireDay"
         Me.txtExpireDay.Size = New System.Drawing.Size(151, 24)
-        Me.txtExpireDay.TabIndex = 4
+        Me.txtExpireDay.TabIndex = 5
         Me.txtExpireDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtAddress
@@ -113,7 +119,7 @@ Partial Class frmConfig
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(28, 48)
+        Me.Label9.Location = New System.Drawing.Point(6, 48)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(33, 18)
         Me.Label9.TabIndex = 13
@@ -121,45 +127,45 @@ Partial Class frmConfig
         '
         'txtPosition
         '
-        Me.txtPosition.Location = New System.Drawing.Point(194, 231)
+        Me.txtPosition.Location = New System.Drawing.Point(194, 261)
         Me.txtPosition.MaxLength = 255
         Me.txtPosition.Name = "txtPosition"
         Me.txtPosition.Size = New System.Drawing.Size(537, 24)
-        Me.txtPosition.TabIndex = 7
+        Me.txtPosition.TabIndex = 8
         '
         'txtSignName
         '
-        Me.txtSignName.Location = New System.Drawing.Point(194, 199)
+        Me.txtSignName.Location = New System.Drawing.Point(194, 229)
         Me.txtSignName.MaxLength = 255
         Me.txtSignName.Name = "txtSignName"
         Me.txtSignName.Size = New System.Drawing.Size(537, 24)
-        Me.txtSignName.TabIndex = 6
+        Me.txtSignName.TabIndex = 7
         '
         'txtBankAccount
         '
-        Me.txtBankAccount.Location = New System.Drawing.Point(194, 167)
+        Me.txtBankAccount.Location = New System.Drawing.Point(194, 197)
         Me.txtBankAccount.MaxLength = 255
         Me.txtBankAccount.Name = "txtBankAccount"
         Me.txtBankAccount.Size = New System.Drawing.Size(537, 24)
-        Me.txtBankAccount.TabIndex = 5
+        Me.txtBankAccount.TabIndex = 6
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(361, 110)
+        Me.Label8.Location = New System.Drawing.Point(361, 140)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(32, 18)
         Me.Label8.TabIndex = 10
         Me.Label8.Text = "บาท"
         '
-        'HousePrice2
+        'HousePrice3
         '
-        Me.HousePrice2.Location = New System.Drawing.Point(194, 107)
-        Me.HousePrice2.MaxLength = 10
-        Me.HousePrice2.Name = "HousePrice2"
-        Me.HousePrice2.Size = New System.Drawing.Size(151, 24)
-        Me.HousePrice2.TabIndex = 3
-        Me.HousePrice2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.HousePrice3.Location = New System.Drawing.Point(194, 137)
+        Me.HousePrice3.MaxLength = 10
+        Me.HousePrice3.Name = "HousePrice3"
+        Me.HousePrice3.Size = New System.Drawing.Size(151, 24)
+        Me.HousePrice3.TabIndex = 4
+        Me.HousePrice3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label7
         '
@@ -192,7 +198,7 @@ Partial Class frmConfig
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(28, 231)
+        Me.Label6.Location = New System.Drawing.Point(6, 261)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(100, 18)
         Me.Label6.TabIndex = 5
@@ -201,7 +207,7 @@ Partial Class frmConfig
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(28, 199)
+        Me.Label5.Location = New System.Drawing.Point(6, 229)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(69, 18)
         Me.Label5.TabIndex = 4
@@ -210,7 +216,7 @@ Partial Class frmConfig
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(28, 20)
+        Me.Label4.Location = New System.Drawing.Point(6, 20)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(72, 18)
         Me.Label4.TabIndex = 3
@@ -219,7 +225,7 @@ Partial Class frmConfig
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(28, 170)
+        Me.Label3.Location = New System.Drawing.Point(6, 200)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(78, 18)
         Me.Label3.TabIndex = 2
@@ -228,7 +234,7 @@ Partial Class frmConfig
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(28, 110)
+        Me.Label2.Location = New System.Drawing.Point(6, 140)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(122, 18)
         Me.Label2.TabIndex = 1
@@ -237,11 +243,11 @@ Partial Class frmConfig
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(28, 78)
+        Me.Label1.Location = New System.Drawing.Point(6, 78)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(154, 18)
+        Me.Label1.Size = New System.Drawing.Size(166, 18)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "ค่าส่วนกลางบ้านทาวน์เฮ้าส์"
+        Me.Label1.Text = "ค่าส่วนกลางบ้านทาวน์เฮ้าส์ 3"
         '
         'GroupBox2
         '
@@ -261,6 +267,33 @@ Partial Class frmConfig
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 19
         Me.PictureBox1.TabStop = False
+        '
+        'HousePrice2
+        '
+        Me.HousePrice2.Location = New System.Drawing.Point(194, 105)
+        Me.HousePrice2.MaxLength = 10
+        Me.HousePrice2.Name = "HousePrice2"
+        Me.HousePrice2.Size = New System.Drawing.Size(151, 24)
+        Me.HousePrice2.TabIndex = 3
+        Me.HousePrice2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(6, 108)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(166, 18)
+        Me.Label12.TabIndex = 19
+        Me.Label12.Text = "ค่าส่วนกลางบ้านทาวน์เฮ้าส์ 4"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(361, 111)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(32, 18)
+        Me.Label13.TabIndex = 20
+        Me.Label13.Text = "บาท"
         '
         'frmConfig
         '
@@ -293,7 +326,7 @@ Partial Class frmConfig
     Friend WithEvents txtSignName As System.Windows.Forms.TextBox
     Friend WithEvents txtBankAccount As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents HousePrice2 As System.Windows.Forms.TextBox
+    Friend WithEvents HousePrice3 As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents HousePrice1 As System.Windows.Forms.TextBox
     Friend WithEvents txtProjectName As System.Windows.Forms.TextBox
@@ -304,5 +337,8 @@ Partial Class frmConfig
     Friend WithEvents txtExpireDay As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents HousePrice2 As System.Windows.Forms.TextBox
 
 End Class

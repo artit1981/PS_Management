@@ -13,7 +13,7 @@ Public Class clsReceipt
             If ConnectStatus Then
                 SQL = "SELECT HOUSE.HOUSEID,HOUSE.HOUSENO,PAYMENTTX.PAYMENTCODE,PAYMENTTX.PAYMENTTXID,PAYMENTTX.PAYTYPE"
                 SQL = SQL & " ,HOUSE.OWNERNAME,HOUSETX.TXAMOUNT,HOUSETX.TXPERIOD,PAYMENTTX.PAYDATE,PAYMENTTX.PAYREMARK  "
-                SQL = SQL & " ,HOUSETX.TXNAME,HOUSETX.QTY,HOUSETX.PRICE "
+                SQL = SQL & " ,HOUSETX.TXNAME,HOUSETX.QTY,HOUSETX.PRICE,HOUSE.SOI "
                 SQL = SQL & " ,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION"
                 SQL = SQL & " FROM PAYMENTTX,HOUSETX,HOUSE,PROJECTCONFIG "
                 SQL = SQL & " WHERE HOUSETX.PAYMENTTXID=PAYMENTTX.PAYMENTTXID and HOUSE.HOUSEID=HOUSETX.HOUSEID  "
@@ -43,7 +43,7 @@ Public Class clsReceipt
                             lPayType = "เงินสด"
                         End If
                         SQL = "INSERT INTO REPORTTX(HOUSEID,HOUSENO,LANDNO,OWNERNAME,TXAMOUNT,TXPERIOD,EXPIREDATE,SEQNO"
-                        SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK )"
+                        SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK,SOI )"
                         SQL = SQL & " VALUES( "
                         SQL = SQL & "  " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID"))
                         SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("HOUSENO")) & "'"
@@ -62,6 +62,7 @@ Public Class clsReceipt
                         SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SIGNNAME")) & "'"
                         SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SIGNPOSITION")) & "'"
                         SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("PAYREMARK")) & "'"
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SOI")) & "'"
                         SQL = SQL & " ) "
                         lPaymentID = ConvertNullToZero(ds.Tables("Data").Rows(i).Item("PAYMENTTXID"))
                         With lCom
@@ -73,7 +74,7 @@ Public Class clsReceipt
                 End If
 
                 SQL = "SELECT HOUSEID,HOUSENO,LANDNO,OWNERNAME,TXAMOUNT,TXPERIOD,EXPIREDATE,SEQNO"
-                SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK FROM REPORTTX "
+                SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK,SOI FROM REPORTTX "
                 da = New OleDb.OleDbDataAdapter(SQL, gConnection)
                 ds = New DataSet
                 da.Fill(ds, "DataTable")

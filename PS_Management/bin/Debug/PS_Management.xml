@@ -23,11 +23,23 @@ PS_Management
 	<summary>
 Represents the strongly named DataTable class.
 </summary>
+</member><member name="T:PS_Management.DBDataSet.DataTable2DataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
 </member><member name="T:PS_Management.DBDataSet.DataTableRow">
 	<summary>
 Represents strongly named DataRow class.
 </summary>
+</member><member name="T:PS_Management.DBDataSet.DataTable2Row">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
 </member><member name="T:PS_Management.DBDataSet.DataTableRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:PS_Management.DBDataSet.DataTable2RowChangeEvent">
 	<summary>
 Row event argument class
 </summary>

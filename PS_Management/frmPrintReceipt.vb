@@ -70,7 +70,7 @@ LineExit:
         SQL = SQL & " ,PAYMENTTX.PAYDATE,TOTALAMOUNT,PAYMENTTX.PAYREMARK  "
         SQL = SQL & " FROM PAYMENTTX"
         SQL = SQL & " WHERE HOUSEID = " & mHouseID
-        SQL = SQL & " Order by PAYMENTTX.PAYMENTTXID"
+        SQL = SQL & " Order by PAYMENTTX.PAYMENTTXID desc"
 
         da = New OleDb.OleDbDataAdapter(SQL, gConnection)
         da.Fill(ds, "Data")

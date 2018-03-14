@@ -183,7 +183,7 @@ LineExit:
         Dim da As OleDb.OleDbDataAdapter
         Dim ds As DataSet = New DataSet
 
-        SQL = "select max(USERID) as HOUSEID from USERS "
+        SQL = "select max(USERID) as USERID from USERS "
         da = New OleDb.OleDbDataAdapter(SQL, gConnection)
         da.Fill(ds, "Data")
 

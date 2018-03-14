@@ -80,7 +80,7 @@ LineExit:
 
         If CheckIsProceeded() = True Then
             Me.Cursor = Cursors.WaitCursor
-            SQL = "SELECT HOUSE.HOUSEID,HOUSE.HOUSENO,HOUSE.LANDNO"
+            SQL = "SELECT HOUSE.HOUSEID,HOUSE.HOUSENO,HOUSE.LANDNO,HOUSE.SOI"
             SQL = SQL & " ,HOUSE.OWNERNAME,HOUSETX.TXAMOUNT,HOUSETX.SEQNO "
             SQL = SQL & " ,HOUSETX.TXNAME as TXNAME,HOUSETX.QTY,HOUSETX.PRICE "
             SQL = SQL & " ,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION"
@@ -95,7 +95,7 @@ LineExit:
             End If
             'SQL = SQL & " GROUP BY HOUSE.HOUSEID,HOUSE.HOUSENO,HOUSETX.TXNAME,HOUSE.LANDNO,HOUSE.OWNERNAME,HOUSETX.TXAMOUNT"
             'SQL = SQL & " ,HOUSETX.SEQNO ,HOUSETX.QTY,HOUSETX.PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION"
-            SQL = SQL & " ORDER BY HOUSE.HOUSEID,HOUSETX.TXPERIOD"
+            SQL = SQL & " ORDER BY HOUSE.HOUSEID,HOUSETX.TXPERIOD "
             da = New OleDb.OleDbDataAdapter(SQL, gConnection)
             ds = New DataSet
             da.Fill(ds, "Data")
@@ -119,7 +119,7 @@ LineExit:
                     End If
 
                     SQL = "INSERT INTO REPORTTX(HOUSEID,HOUSENO,LANDNO,OWNERNAME,TXAMOUNT,TXPERIOD,EXPIREDATE,SEQNO"
-                    SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK )"
+                    SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK,SOI )"
                     SQL = SQL & " VALUES( "
                     SQL = SQL & "  " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID"))
                     SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("HOUSENO")) & "'"
@@ -138,6 +138,7 @@ LineExit:
                     SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SIGNNAME")) & "'"
                     SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SIGNPOSITION")) & "'"
                     SQL = SQL & " ,''"
+                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SOI")) & "'"
                     SQL = SQL & " ) "
                     lHouseID = ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID"))
                     With lCom
@@ -149,7 +150,7 @@ LineExit:
             End If
 
             SQL = "SELECT HOUSEID,HOUSENO,LANDNO,OWNERNAME,TXAMOUNT,TXPERIOD,EXPIREDATE,SEQNO"
-            SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK FROM REPORTTX "
+            SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK,SOI FROM REPORTTX "
             da = New OleDb.OleDbDataAdapter(SQL, gConnection)
             ds = New DataSet
             da.Fill(ds, "DataTable")
@@ -164,6 +165,7 @@ LineExit:
             frmShowReport.CrystalReportViewer1.ReportSource = rpt
             frmShowReport.CrystalReportViewer1.Refresh()
             Me.Cursor = Cursors.Default
+            'frmShowReport.MdiParent = frmMain
             frmShowReport.Show()
 
         End If
