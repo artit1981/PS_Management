@@ -53,7 +53,8 @@ Public Class clsReceipt
                         SQL = SQL & " ,'" & Format(ds.Tables("Data").Rows(i).Item("TXPERIOD"), "MMMM yyyy") & "'"
                         SQL = SQL & " ,'" & Format(ds.Tables("Data").Rows(i).Item("PAYDATE"), "dd MMMM yyyy") & "'"
                         SQL = SQL & " , " & lSEQ
-                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("TXNAME")) & "'"
+                        'SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("TXNAME")) & "'"
+                        SQL = SQL & " ,'ค่าใช้จ่ายส่วนกลาง เดือน" & Format(ds.Tables("Data").Rows(i).Item("TXPERIOD"), "MMMM yyyy") & "'"
                         SQL = SQL & " , " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("QTY"))
                         SQL = SQL & " , " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("PRICE"))
                         SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("PROJECTNAME")) & "'"

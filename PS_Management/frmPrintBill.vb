@@ -73,10 +73,12 @@ LineExit:
         Dim ds As DataSet = New DataSet
         Dim lCom As OleDb.OleDbCommand = gConnection.CreateCommand()
         Dim ldtpCurrentDate As Date = DateSerial(Me.cboYear.SelectedItem, Me.cboMonth.SelectedIndex + 1, 1)
-        Dim lstrPeriod As String = "", lstrExprire As String = ""
+        Dim lstrPeriod As String = "", lstrExprire As String = "", lTxDate As Date, lConDate As Date
         On Error GoTo LineError
 
         If Not ConnectStatus Then GoTo LineExit 'Check Connection
+
+        'lConDate = DateSerial(Year(ds.Tables("Data").Rows(i).Item("TXPERIOD")), Month(ds.Tables("Data").Rows(i).Item("TXPERIOD")), 1)
 
         If CheckIsProceeded() = True Then
             Me.Cursor = Cursors.WaitCursor
@@ -87,7 +89,7 @@ LineExit:
             SQL = SQL & " ,HOUSETX.TXPERIOD as TXPERIOD ,HOUSETX.EXPIREDATE as EXPIREDATE,PROJECTCONFIG.EXPIREDAY "
             SQL = SQL & " FROM HOUSE,HOUSETX,PROJECTCONFIG "
             SQL = SQL & " WHERE HOUSE.HOUSEID=HOUSETX.HOUSEID"
-            SQL = SQL & " AND MONTH(HOUSETX.TXPERIOD)<=" & Me.cboMonth.SelectedIndex + 1
+            'SQL = SQL & " AND MONTH(HOUSETX.TXPERIOD)<=" & Me.cboMonth.SelectedIndex + 1
             SQL = SQL & " AND YEAR(HOUSETX.TXPERIOD)<=" & IIf(gbolThai = True, Me.cboYear.SelectedItem - 543, Me.cboYear.SelectedItem)
             SQL = SQL & " AND HOUSE.ISDELETE='N'  AND HOUSETX.ISPAY='N'"
             If chkAll.CheckState = CheckState.Unchecked Then
@@ -112,40 +114,45 @@ LineExit:
                 lstrExprire = Format(DateAdd(DateInterval.Day, ConvertNullToZero(ds.Tables("Data").Rows(0).Item("EXPIREDAY")), ldtpCurrentDate), "dd MMMM yyyy")
 
                 For i = 0 To lCount - 1
-                    If ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID")) <> lHouseID Then
-                        lSEQ = 1
-                    Else
-                        lSEQ = lSEQ + 1
-                    End If
+                    lTxDate = DateSerial(Year(ds.Tables("Data").Rows(i).Item("TXPERIOD")), Month(ds.Tables("Data").Rows(i).Item("TXPERIOD")), 1)
 
-                    SQL = "INSERT INTO REPORTTX(HOUSEID,HOUSENO,LANDNO,OWNERNAME,TXAMOUNT,TXPERIOD,EXPIREDATE,SEQNO"
-                    SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK,SOI )"
-                    SQL = SQL & " VALUES( "
-                    SQL = SQL & "  " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID"))
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("HOUSENO")) & "'"
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("LANDNO")) & "'"
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("OWNERNAME")) & "'"
-                    SQL = SQL & " , " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("TXAMOUNT"))
-                    SQL = SQL & " ,'" & Format(ds.Tables("Data").Rows(i).Item("TXPERIOD"), "MMMM yyyy") & "'"
-                    SQL = SQL & " ,'" & Format(ds.Tables("Data").Rows(i).Item("EXPIREDATE"), "dd MMMM yyyy") & "'"
-                    SQL = SQL & " , " & lSEQ
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("TXNAME")) & "'"
-                    SQL = SQL & " , " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("QTY"))
-                    SQL = SQL & " , " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("PRICE"))
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("PROJECTNAME")) & "'"
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("PROJECTADDRESS")) & "'"
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("BANKACCOUNT")) & "'"
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SIGNNAME")) & "'"
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SIGNPOSITION")) & "'"
-                    SQL = SQL & " ,''"
-                    SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SOI")) & "'"
-                    SQL = SQL & " ) "
-                    lHouseID = ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID"))
-                    With lCom
-                        .Connection = gConnection
-                        .CommandText = SQL
-                        .ExecuteNonQuery()
-                    End With
+                    If lTxDate <= ldtpCurrentDate Then
+                        If ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID")) <> lHouseID Then
+                            lSEQ = 1
+                        Else
+                            lSEQ = lSEQ + 1
+                        End If
+
+                        SQL = "INSERT INTO REPORTTX(HOUSEID,HOUSENO,LANDNO,OWNERNAME,TXAMOUNT,TXPERIOD,EXPIREDATE,SEQNO"
+                        SQL = SQL & ",TXNAME,QTY ,PRICE,PROJECTNAME,PROJECTADDRESS,BANKACCOUNT,SIGNNAME,SIGNPOSITION,REMARK,SOI )"
+                        SQL = SQL & " VALUES( "
+                        SQL = SQL & "  " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID"))
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("HOUSENO")) & "'"
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("LANDNO")) & "'"
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("OWNERNAME")) & "'"
+                        SQL = SQL & " , " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("TXAMOUNT"))
+                        SQL = SQL & " ,'" & Format(ds.Tables("Data").Rows(i).Item("TXPERIOD"), "MMMM yyyy") & "'"
+                        SQL = SQL & " ,'" & Format(ds.Tables("Data").Rows(i).Item("EXPIREDATE"), "dd MMMM yyyy") & "'"
+                        SQL = SQL & " , " & lSEQ
+                        'SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("TXNAME")) & "'"
+                        SQL = SQL & " ,'ค่าใช้จ่ายส่วนกลาง เดือน" & Format(ds.Tables("Data").Rows(i).Item("TXPERIOD"), "MMMM yyyy") & "'"
+                        SQL = SQL & " , " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("QTY"))
+                        SQL = SQL & " , " & ConvertNullToZero(ds.Tables("Data").Rows(i).Item("PRICE"))
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("PROJECTNAME")) & "'"
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("PROJECTADDRESS")) & "'"
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("BANKACCOUNT")) & "'"
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SIGNNAME")) & "'"
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SIGNPOSITION")) & "'"
+                        SQL = SQL & " ,''"
+                        SQL = SQL & " ,'" & ConvertNullToString(ds.Tables("Data").Rows(i).Item("SOI")) & "'"
+                        SQL = SQL & " ) "
+                        lHouseID = ConvertNullToZero(ds.Tables("Data").Rows(i).Item("HOUSEID"))
+                        With lCom
+                            .Connection = gConnection
+                            .CommandText = SQL
+                            .ExecuteNonQuery()
+                        End With
+                    End If
                 Next
             End If
 
@@ -190,14 +197,15 @@ LineError:
         If ConnectStatus Then
             'Check IS PAY
             SQL = "SELECT HOUSEID FROM HOUSETX"
-            SQL = SQL & " WHERE month(TXPERIOD)<= " & Me.cboMonth.SelectedIndex + 1
-            SQL = SQL & " AND year(TXPERIOD)<= " & IIf(gbolThai = True, Me.cboYear.SelectedItem - 543, Me.cboYear.SelectedItem)
+            'SQL = SQL & " WHERE month(TXPERIOD)<= " & Me.cboMonth.SelectedIndex + 1
+            SQL = SQL & " WHERE year(TXPERIOD)<= " & IIf(gbolThai = True, Me.cboYear.SelectedItem - 543, Me.cboYear.SelectedItem)
             SQL = SQL & " AND ISPAY='N' "
             da = New OleDb.OleDbDataAdapter(SQL, gConnection)
             ds = New DataSet
             da.Fill(ds, "Data")
             If ds.Tables("Data").Rows.Count = 0 Then
-                MsgBox("ไม่พบพบข้อมูลการประมวลผลของ งวดเดือน" & Format(ldtpCurrentDate, "MMMM yyyy"), MsgBoxStyle.Critical + MessageBoxButtons.YesNo, "การตรวจสอบ")
+                MsgBox(Me.cboMonth.SelectedIndex + 1 & ":" & IIf(gbolThai = True, Me.cboYear.SelectedItem - 543, Me.cboYear.SelectedItem))
+                MsgBox("ไม่พบพบข้อมูลการประมวลผลของ งวดเดือน" & Format(ldtpCurrentDate, "MMMM yyyy"), MsgBoxStyle.Critical + MessageBoxButtons.OK, "การตรวจสอบ")
                 Return False
             End If
         End If
